@@ -6,9 +6,8 @@ import Canvas from "./Canvas";
 import App from "./App";
 
 const config = {
-  width: 1920,
-  height: 1080,
-  antialias: true,
+  width: 800,
+  height: 600,
 };
 
 ReactDOM.render(

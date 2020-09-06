@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Tetris
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Scoring System 
 
-## Available Scripts
+reference by [Tetris Series #1 — Scoring System](https://www.codewars.com/kata/5da9af1142d7910001815d32/)
 
-In the project directory, you can run:
+The scoring formula is built on the idea that more difficult line clears should be awarded more points.
+For example, a single line clear is worth `40` points, 
+clearing four lines at once (known as a Tetris) is worth `1200`.
 
-### `yarn start`
+A level multiplier is also used.
+The game starts at level `0`.
+The level increases every `10` lines you clear.
+Note that after increasing the level, the total number of cleared lines is not reset.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+For our task you can use this table:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+| Level | Points for 1 line                          | Points for 2 lines | Points for 3 lines | Points for 4 lines |
+| ----- | ------------------------------------------ | ------------------ | ------------------ | ------------------ |
+| 0     | 40                                         | 100                | 300                | 1200               |
+| 1     | 80                                         | 200                | 600                | 2400               |
+| 2     | 120                                        | 300                | 900                | 3600               |
+| 3     | 160                                        | 400                | 1200               | 4800               |
+| ...   |                                            |                    |                    |                    |
+| 7     | 320                                        | 800                | 2400               | 9600               |
+| ...   | For level n you must determine the formula |
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
