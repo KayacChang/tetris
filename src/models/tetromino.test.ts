@@ -6,7 +6,7 @@ const checkReturnType = (type: TetrominoType) =>
   test(`test tetromino("${type}") return Tetromino`, () =>
     properties.forEach(expect(Tetromino(type)).toHaveProperty));
 
-const blocks: Record<TetrominoType, number[][]> = {
+const blocks: Record<TetrominoType, number[][][]> = {
   //
   I: [
     [
@@ -33,7 +33,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [0, 1, 0, 0],
       [0, 1, 0, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   J: [
     [
@@ -56,7 +56,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [0, 1, 0],
       [1, 1, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   L: [
     [
@@ -79,7 +79,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [0, 1, 0],
       [0, 1, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   O: [
     [
@@ -106,7 +106,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [0, 1, 1, 0],
       [0, 0, 0, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   S: [
     [
@@ -129,7 +129,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [1, 1, 0],
       [0, 1, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   T: [
     [
@@ -152,7 +152,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [1, 1, 0],
       [0, 1, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
   //
   Z: [
     [
@@ -175,7 +175,7 @@ const blocks: Record<TetrominoType, number[][]> = {
       [1, 1, 0],
       [1, 0, 0],
     ],
-  ].map((_) => _.flat()),
+  ],
 };
 
 const checkBlock = (type: TetrominoType) =>

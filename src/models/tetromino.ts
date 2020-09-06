@@ -3,20 +3,33 @@ export type TetrominoType = "I" | "J" | "L" | "O" | "S" | "T" | "Z";
 export interface ITetromino {
   type: TetrominoType;
   color: number;
-  blocks: number[][];
+  blocks: number[][][];
   rotate: 0 | 1 | 2 | 3;
   position: [number, number];
+}
+
+function groupBy<T>(num: number, arr: T[]) {
+  const newArr = [];
+
+  while (arr.length) {
+    newArr.push(arr.splice(0, num));
+  }
+
+  return newArr;
 }
 
 function Blocks(type: TetrominoType, blocks: number[]) {
   const len = ["I", "O"].includes(type) ? 4 : 3;
 
   return blocks.map((binary) =>
-    binary
-      .toString(2)
-      .padStart(len ** 2, "0")
-      .split("")
-      .map(Number)
+    groupBy(
+      len,
+      binary
+        .toString(2)
+        .padStart(len ** 2, "0")
+        .split("")
+        .map(Number)
+    )
   );
 }
 
