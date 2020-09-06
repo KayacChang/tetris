@@ -2,10 +2,6 @@ import { Tetromino, TetrominoType } from "./tetromino";
 
 const properties = ["type", "color", "blocks", "rotate", "position"];
 
-const checkReturnType = (type: TetrominoType) =>
-  test(`test tetromino("${type}") return Tetromino`, () =>
-    properties.forEach(expect(Tetromino(type)).toHaveProperty));
-
 const blocks: Record<TetrominoType, number[][][]> = {
   //
   I: [
@@ -178,11 +174,15 @@ const blocks: Record<TetrominoType, number[][][]> = {
   ],
 };
 
+const checkReturnType = (type: TetrominoType) =>
+  test(`test tetromino("${type}") return Tetromino`, () =>
+    properties.forEach(expect(Tetromino(type)).toHaveProperty));
+
 const checkBlock = (type: TetrominoType) =>
   test(`test tetromino("${type}") block`, () =>
     expect(Tetromino(type).blocks).toEqual(blocks[type]));
 
-describe("Get tetromino instance by type", () => {
+describe("Tetromino", () => {
   const input: TetrominoType[] = ["I", "J", "L", "O", "S", "T", "Z"];
   input.forEach((type) => (checkReturnType(type), checkBlock(type)));
 });
