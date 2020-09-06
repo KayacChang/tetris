@@ -6,8 +6,8 @@ import Canvas from "./Canvas";
 import App from "./App";
 
 const config = {
-  width: 800,
-  height: 600,
+  width: 900,
+  height: 1200,
 };
 
 ReactDOM.render(
