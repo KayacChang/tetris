@@ -42,12 +42,12 @@
  * Step 6: `+2400`. Score: `2300 + 2400 = 4700`
  * Step 7: `+200`. Total score: `4700 + 200 = 4900` points
  */
-import getScore from "./scores";
+import score from "./score";
 
 describe("Calculate the final score of the game using original Nintendo scoring system", () => {
   const testing = (arr: number[], exp: number) =>
     test(`Testing for [${arr.join(", ")}]`, () =>
-      expect(getScore(arr)).toEqual(exp));
+      expect(score(arr)).toEqual(exp));
 
   testing([0, 1, 2, 3, 4], 1640);
   testing([0, 1, 1, 3, 0, 2, 1, 2], 620);

@@ -1,4 +1,4 @@
-export default function getScore(arr: number[]) {
+export default function score(arr: number[]) {
   return arr.reduce(
     ({ scores, totalLines }, lines) => ({
       scores:
