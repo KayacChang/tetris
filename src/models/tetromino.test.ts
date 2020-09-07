@@ -1,6 +1,6 @@
 import { Tetromino, TetrominoType } from "./tetromino";
 
-const properties = ["type", "color", "blocks", "rotate"];
+const properties = ["type", "color", "blocks", "rotate", "position"];
 
 const blocks: Record<TetrominoType, number[][][]> = {
   //

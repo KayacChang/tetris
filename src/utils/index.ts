@@ -7,3 +7,7 @@ export function fillTable(row: number, col: number, fill: number): number[][] {
     .fill([])
     .map(() => Array(col).fill(fill));
 }
+
+export function cloneTable(table: number[][]) {
+  return table.map((arr) => arr.slice());
+}

@@ -7,6 +7,7 @@ export interface ITetromino {
   color: number;
   blocks: number[][][];
   rotate: 0 | 1 | 2 | 3;
+  position: { x: number; y: number };
 }
 
 function groupBy<T>(num: number, arr: T[]) {
@@ -62,6 +63,7 @@ function base(type: TetrominoType, color: number, binary: number): ITetromino {
     color,
     blocks: Blocks(type, binary),
     rotate: 0,
+    position: { x: 0, y: 0 },
   };
 }
 
