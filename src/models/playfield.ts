@@ -1,5 +1,5 @@
-import { Grid } from "../utils";
+import { fillTable } from "../utils";
 
 export default function PlayField() {
-  return Grid(20, 10);
+  return fillTable(20, 10, 0xffffff);
 }

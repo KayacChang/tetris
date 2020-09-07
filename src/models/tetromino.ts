@@ -1,4 +1,4 @@
-import { Grid } from "../utils";
+import { fillTable } from "../utils";
 
 export type TetrominoType = "I" | "J" | "L" | "O" | "S" | "T" | "Z";
 
@@ -7,7 +7,6 @@ export interface ITetromino {
   color: number;
   blocks: number[][][];
   rotate: 0 | 1 | 2 | 3;
-  position: [number, number];
 }
 
 function groupBy<T>(num: number, arr: T[]) {
@@ -21,7 +20,7 @@ function groupBy<T>(num: number, arr: T[]) {
 }
 
 function rotate(blocks: number[][]) {
-  const result = Grid(blocks.length, blocks[0].length);
+  const result = fillTable(blocks.length, blocks[0].length, 0);
 
   for (let y = 0; y < blocks.length; y++) {
     for (let x = 0; x < blocks[y].length; x++) {
@@ -63,7 +62,6 @@ function base(type: TetrominoType, color: number, binary: number): ITetromino {
     color,
     blocks: Blocks(type, binary),
     rotate: 0,
-    position: [0, 0],
   };
 }
 

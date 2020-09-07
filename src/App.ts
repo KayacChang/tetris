@@ -1,17 +1,17 @@
 import { Application } from "pixi.js";
 import PlayField from "./models/playfield";
-import GridLayout from "./views/grid";
+import RenderSystem from "./systems/render";
 
 export default function main(app: Application) {
-  const layout = GridLayout({
-    table: PlayField(),
-    gridWidth: 40,
-    gridHeight: 40,
-    gap: 1,
+  const render = RenderSystem(app);
+
+  app.ticker.add(() => {
+    // Game Timing
+    // Input
+    // Game Logic
+    const playfield = PlayField();
+
+    // Render
+    render(playfield);
   });
-
-  layout.position.set(app.screen.width / 2, app.screen.height / 2);
-  layout.pivot.set(layout.width / 2, layout.height / 2);
-
-  app.stage.addChild(layout);
 }

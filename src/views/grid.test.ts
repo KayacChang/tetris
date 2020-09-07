@@ -1,4 +1,4 @@
-import GridLayout from "./grid";
+import Grid from "./grid";
 import { Container } from "pixi.js";
 
 describe("GridLayout", () => {
@@ -7,7 +7,7 @@ describe("GridLayout", () => {
   const gridHeight = 10;
   const gap = 0;
 
-  const layout = GridLayout({ table, gridWidth, gridHeight, gap });
+  const layout = Grid({ table, gridWidth, gridHeight, gap });
 
   test("grid layout width and height", () => {
     expect(layout.width).toEqual(gridWidth * table[0].length);

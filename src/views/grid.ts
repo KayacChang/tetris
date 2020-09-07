@@ -1,24 +1,29 @@
 import { Graphics, Container } from "pixi.js";
 
+type Color = number;
+
 type GridProps = {
   px: number;
   py: number;
   width: number;
   height: number;
-  lineWidth: number;
-  lineColor?: number;
+  fillColor?: Color;
+  lineWidth?: number;
+  lineColor?: Color;
 };
-function Grid({
+function GridItem({
   px,
   py,
   width,
   height,
-  lineWidth,
+  fillColor,
+  lineWidth = 0,
   lineColor = 0xffffff,
 }: GridProps) {
   const grid = new Graphics();
 
   grid.lineStyle(lineWidth, lineColor);
+  grid.beginFill(fillColor);
   grid.drawRect(0, 0, width - lineWidth, height - lineWidth);
   grid.endFill();
 
@@ -27,34 +32,33 @@ function Grid({
   return grid;
 }
 
+const getGridItem = (props: Omit<GridProps, "px" | "py">) => (
+  px: number,
+  py: number,
+  fillColor: number
+) => Boolean(fillColor) && GridItem({ px, py, fillColor, ...props });
+
 type Props = {
-  table: number[][];
+  table: Color[][];
   gridWidth: number;
   gridHeight: number;
-  gap: number;
 };
-export default function GridLayout({
-  table,
-  gridWidth,
-  gridHeight,
-  gap,
-}: Props) {
+export default function Grid({ table, gridWidth, gridHeight }: Props) {
+  const item = getGridItem({
+    width: gridWidth,
+    height: gridHeight,
+  });
+
   const layout = new Container();
 
   layout.addChild(
     ...table
-      .map((row, py) =>
-        row
-          .map((_, px) =>
-            Grid({
-              px,
-              py,
-              width: gridWidth,
-              height: gridHeight,
-              lineWidth: gap,
-            })
-          )
-          .flat()
+      .map(
+        (row, py) =>
+          row
+            .map((color, px) => item(px, py, color))
+            .flat()
+            .filter(Boolean) as Container[]
       )
       .flat()
   );
