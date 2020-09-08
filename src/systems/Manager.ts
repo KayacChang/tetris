@@ -13,6 +13,6 @@ export default function SystemManager({ ticker }: Application, state: State) {
   });
 
   return {
-    add: (system: System) => systems.push(system),
+    add: (...system: System[]) => systems.push(...system),
   };
 }
