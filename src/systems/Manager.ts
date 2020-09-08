@@ -4,12 +4,11 @@ import { System, State } from "../types";
 export default function SystemManager({ ticker }: Application, state: State) {
   const systems: System[] = [];
 
-  ticker.add(() => {
-    const delta = ticker.deltaMS;
+  const update = (state: State, system: System) =>
+    system(ticker.deltaMS, state);
 
-    state = systems.reduce((state, update) => update(delta, state), {
-      ...state,
-    });
+  ticker.add(() => {
+    state = systems.reduce(update, { ...state });
   });
 
   return {
