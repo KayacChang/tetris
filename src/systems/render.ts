@@ -1,12 +1,11 @@
 import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
 import { System } from "../types";
-import { throttle } from "../utils";
 
 export default function RenderSystem(app: Application): System {
   let layout: Container | undefined;
 
-  return throttle(1000, (delta, state) => {
+  return (delta, state) => {
     layout && app.stage.removeChild(layout);
 
     layout = Grid({
@@ -21,5 +20,5 @@ export default function RenderSystem(app: Application): System {
     app.stage.addChild(layout);
 
     return state;
-  });
+  };
 }

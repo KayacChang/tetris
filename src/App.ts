@@ -2,6 +2,7 @@ import { Application } from "pixi.js";
 import PlayField from "./models/playfield";
 import SystemManager from "./systems/Manager";
 import RenderSystem from "./systems/Render";
+import { throttle } from "./utils";
 
 export default function main(app: Application) {
   const systems = SystemManager(app, {
@@ -9,5 +10,5 @@ export default function main(app: Application) {
     tetrominos: [],
   });
 
-  systems.add(RenderSystem(app));
+  systems.add(throttle(1000, RenderSystem(app)));
 }
