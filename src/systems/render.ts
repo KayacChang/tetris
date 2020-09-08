@@ -1,14 +1,16 @@
 import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
+import { System } from "../types";
+import { throttle } from "../utils";
 
-export default function RenderSystem(app: Application) {
+export default function RenderSystem(app: Application): System {
   let layout: Container | undefined;
 
-  return (table: number[][]) => {
+  return throttle(1000, (delta, state) => {
     layout && app.stage.removeChild(layout);
 
     layout = Grid({
-      table,
+      table: state.playField,
       gridWidth: 40,
       gridHeight: 40,
     });
@@ -17,5 +19,7 @@ export default function RenderSystem(app: Application) {
     layout.pivot.set(layout.width / 2, layout.height / 2);
 
     app.stage.addChild(layout);
-  };
+
+    return state;
+  });
 }

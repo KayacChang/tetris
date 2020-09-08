@@ -1,14 +1,5 @@
 import { fillTable } from "../utils";
-
-export type TetrominoType = "I" | "J" | "L" | "O" | "S" | "T" | "Z";
-
-export interface ITetromino {
-  type: TetrominoType;
-  color: number;
-  blocks: number[][][];
-  rotate: 0 | 1 | 2 | 3;
-  position: { x: number; y: number };
-}
+import { TetrominoType, ITetromino } from "../types";
 
 function groupBy<T>(num: number, arr: T[]) {
   const newArr = [];

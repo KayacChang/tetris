@@ -1,4 +1,4 @@
-import RenderSystem from "./render";
+import RenderSystem from "./Render";
 
 describe("RenderSystem", () => {
   // TODO
