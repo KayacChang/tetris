@@ -1,5 +1,14 @@
 import { fillTable } from "../utils";
-import { TetrominoType, ITetromino } from "../types";
+
+export type TetrominoType = "I" | "J" | "L" | "O" | "S" | "T" | "Z";
+
+export interface ITetromino {
+  type: TetrominoType;
+  color: number;
+  blocks: number[][][];
+  rotate: 0 | 1 | 2 | 3;
+  position: { x: number; y: number };
+}
 
 function groupBy<T>(num: number, arr: T[]) {
   const newArr = [];
@@ -28,7 +37,8 @@ function Blocks(type: TetrominoType, binary: number) {
 
   const results: number[][][] = [];
 
-  for (let i = 0; i < 4; i++) {
+  const rotation = 4;
+  for (let i = 0; i < rotation; i++) {
     const block = groupBy(
       len,
       binary

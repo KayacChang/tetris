@@ -1,15 +1,18 @@
 import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
-import { System } from "../types";
+import { Store } from "redux";
+import { State } from "../reducers";
 
-export default function RenderSystem(app: Application): System {
+export default function RenderSystem(app: Application) {
   let layout: Container | undefined;
 
-  return (delta, state) => {
+  return (delta: number, store: Store<State>) => {
+    const { playField } = store.getState();
+
     layout && app.stage.removeChild(layout);
 
     layout = Grid({
-      table: state.playField,
+      table: playField,
       gridWidth: 40,
       gridHeight: 40,
     });
@@ -18,7 +21,5 @@ export default function RenderSystem(app: Application): System {
     layout.pivot.set(layout.width / 2, layout.height / 2);
 
     app.stage.addChild(layout);
-
-    return state;
   };
 }

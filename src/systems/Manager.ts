@@ -1,15 +1,18 @@
 import { Application } from "pixi.js";
-import { System, State } from "../types";
+import { Store } from "redux";
+import { State } from "../reducers";
 
-export default function SystemManager({ ticker }: Application, state: State) {
+type System = (delta: number, store: Store<State>) => void;
+
+export default function SystemManager(
+  { ticker }: Application,
+  store: Store<State>
+) {
   const systems: System[] = [];
 
-  const update = (state: State, system: System) =>
-    system(ticker.deltaMS, state);
+  const update = (system: System) => system(ticker.deltaMS, store);
 
-  ticker.add(() => {
-    state = systems.reduce(update, { ...state });
-  });
+  ticker.add(() => systems.forEach(update));
 
   return {
     add: (...system: System[]) => systems.push(...system),

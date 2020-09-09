@@ -1,6 +1,5 @@
 import { fillTable } from "../utils";
-import { IPlayField } from "../types";
 
-export default function PlayField(): IPlayField {
+export default function PlayField(): number[][] {
   return fillTable(20, 10, 0xffffff);
 }
