@@ -4,22 +4,37 @@ import { Store } from "redux";
 import { State } from "../reducers";
 
 export default function RenderSystem(app: Application) {
-  let layout: Container | undefined;
+  const config = {
+    gridWidth: 40,
+    gridHeight: 40,
+  };
+
+  let layout = new Container();
 
   return (delta: number, store: Store<State>) => {
-    const { playField } = store.getState();
+    const { playField, tetrominos } = store.getState();
 
-    layout && app.stage.removeChild(layout);
-
+    app.stage.removeChild(layout);
     layout = Grid({
       table: playField,
-      gridWidth: 40,
-      gridHeight: 40,
+      ...config,
     });
-
     layout.position.set(app.screen.width / 2, app.screen.height / 2);
     layout.pivot.set(layout.width / 2, layout.height / 2);
-
     app.stage.addChild(layout);
+
+    tetrominos.forEach(({ blocks, rotate, position }) => {
+      const grid = Grid({
+        table: blocks[rotate],
+        ...config,
+      });
+
+      grid.position.set(
+        position.x * config.gridWidth,
+        position.y * config.gridHeight
+      );
+
+      layout.addChild(grid);
+    });
   };
 }
