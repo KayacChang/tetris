@@ -3,7 +3,7 @@ import { tetrominoReducer } from "./tetromino";
 import { playFieldReducer } from "./playfield";
 
 export const rootReducer = combineReducers({
-  tetromino: tetrominoReducer,
+  tetrominos: tetrominoReducer,
   playField: playFieldReducer,
 });
 

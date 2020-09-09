@@ -9,8 +9,21 @@ interface AddTetrominoAction {
 
 export type TetrominoAction = AddTetrominoAction;
 
+export function addTetromino(payload: ITetromino): AddTetrominoAction {
+  return {
+    type: ADD_TETROMINO,
+    payload,
+  };
+}
+
 const init: ITetromino[] = [];
 
 export function tetrominoReducer(state = init, action: TetrominoAction) {
+  if (action.type === ADD_TETROMINO) {
+    const tetromino = action.payload as ITetromino;
+
+    return [...state, tetromino];
+  }
+
   return state;
 }

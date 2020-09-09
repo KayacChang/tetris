@@ -9,6 +9,13 @@ interface UpdatePlayFieldAction {
 
 export type PlayFieldAction = UpdatePlayFieldAction;
 
+export function updatePlayField(payload: number[][]): UpdatePlayFieldAction {
+  return {
+    type: UPDATE_PLAYFIELD,
+    payload,
+  };
+}
+
 const init = PlayField();
 
 export function playFieldReducer(state = init, action: PlayFieldAction) {
