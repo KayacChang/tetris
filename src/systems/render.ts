@@ -2,6 +2,7 @@ import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
 import { Store } from "redux";
 import { State } from "../reducers";
+import { mapTable } from "../utils";
 
 export default function RenderSystem(app: Application) {
   const config = {
@@ -23,9 +24,9 @@ export default function RenderSystem(app: Application) {
     layout.pivot.set(layout.width / 2, layout.height / 2);
     app.stage.addChild(layout);
 
-    tetrominos.forEach(({ blocks, rotate, position }) => {
+    tetrominos.forEach(({ blocks, rotate, position, color }) => {
       const grid = Grid({
-        table: blocks[rotate],
+        table: mapTable((value) => (value ? color : value), blocks[rotate]),
         ...config,
       });
 
