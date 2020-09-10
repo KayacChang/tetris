@@ -15,6 +15,6 @@ export default function SystemManager(
   ticker.add(() => systems.forEach(update));
 
   return {
-    add: (...system: System[]) => systems.push(...system),
+    add: (...system: System[]) => systems.unshift(...system),
   };
 }

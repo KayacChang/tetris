@@ -17,14 +17,12 @@ export default function RenderSystem(app: Application) {
   function fresh(table: number[][]) {
     app.stage.removeChild(layout);
     layout = Grid({
-      table,
+      table: mapTable(always(0xffffff), table),
       ...config,
     });
     layout.position.set(app.screen.width / 2, app.screen.height / 2);
     layout.pivot.set(layout.width / 2, layout.height / 2);
     app.stage.addChild(layout);
-
-    return layout;
   }
 
   function tetrominoToGrid({ blocks, rotate, position, color }: ITetromino) {
@@ -44,6 +42,9 @@ export default function RenderSystem(app: Application) {
   return (delta: number, store: Store<State>) => {
     const { playField, tetrominos } = store.getState();
 
-    fresh(playField).addChild(...tetrominos.map(tetrominoToGrid));
+    fresh(playField);
+    if (tetrominos.length) {
+      layout.addChild(...tetrominos.map(tetrominoToGrid));
+    }
   };
 }

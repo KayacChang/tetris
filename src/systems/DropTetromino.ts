@@ -4,9 +4,9 @@ import { updateTetromino } from "../reducers/tetromino";
 import { ITetromino } from "../models/tetromino";
 
 function drop(tetrominos: ITetromino[]) {
-  return tetrominos.map(({ position, ...rest }) => ({
+  return tetrominos.map(({ ...rest }) => ({
     ...rest,
-    position: { x: position.x, y: position.y + 1 },
+    vector: { x: 0, y: 1 },
   }));
 }
 
