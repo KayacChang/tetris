@@ -1,8 +1,6 @@
-import { Store } from "redux";
-import { State } from "../reducers";
-import { updateTetromino } from "../reducers/tetromino";
 import { ITetromino } from "../models/tetromino";
 import { mergeWith, add } from "ramda";
+import { State } from "./types";
 
 function collide(
   playField: number[][],
@@ -27,28 +25,27 @@ function collide(
 }
 
 export default function MoveTetrominoSystem() {
-  return (delta: number, store: Store<State>) => {
-    const { tetrominos, playField } = store.getState();
+  return (delta: number, state: State) => {
+    if (!state.current) {
+      return state;
+    }
 
-    store.dispatch(
-      updateTetromino(
-        tetrominos.map((tetromino) => {
-          if (collide(playField, tetromino)) {
-            return {
-              ...tetromino,
-              lock: true,
-              vector: { x: 0, y: 0 },
-            };
-          }
+    if (collide(state.playfield, state.current)) {
+      Object.assign(state.current, {
+        lock: true,
+        vector: { x: 0, y: 0 },
+      });
 
-          const { position, vector } = tetromino;
-          return {
-            ...tetromino,
-            position: mergeWith(add, position, vector),
-            vector: { x: 0, y: 0 },
-          };
-        })
-      )
-    );
+      return { ...state, current: undefined };
+    }
+
+    const { position, vector } = state.current;
+
+    Object.assign(state.current, {
+      position: mergeWith(add, position, vector),
+      vector: { x: 0, y: 0 },
+    });
+
+    return state;
   };
 }

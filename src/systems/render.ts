@@ -1,10 +1,9 @@
 import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
-import { Store } from "redux";
-import { State } from "../reducers";
 import { mapTable } from "../utils";
 import { when, always } from "ramda";
 import { ITetromino } from "../models/tetromino";
+import { State } from "./types";
 
 export default function RenderSystem(app: Application) {
   const config = {
@@ -39,12 +38,12 @@ export default function RenderSystem(app: Application) {
     return grid;
   }
 
-  return (delta: number, store: Store<State>) => {
-    const { playField, tetrominos } = store.getState();
+  return (delta: number, state: State) => {
+    const { playfield, tetrominos } = state;
 
-    fresh(playField);
-    if (tetrominos.length) {
-      layout.addChild(...tetrominos.map(tetrominoToGrid));
-    }
+    fresh(playfield);
+    tetrominos.length && layout.addChild(...tetrominos.map(tetrominoToGrid));
+
+    return state;
   };
 }

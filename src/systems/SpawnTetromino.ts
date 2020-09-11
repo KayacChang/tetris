@@ -1,16 +1,19 @@
-import { Store } from "redux";
-import { State } from "../reducers";
-import { addTetromino } from "../reducers/tetromino";
+import { State } from "./types";
 import { Tetromino } from "../models/tetromino";
 
 export default function SpawnTetrominoSystem() {
   let once = true;
 
-  return (delta: number, store: Store<State>) => {
+  return (delta: number, state: State) => {
     if (once) {
-      store.dispatch(addTetromino(Tetromino("I")));
+      const current = Tetromino("I");
+
+      state.tetrominos.push(current);
+      state.current = current;
 
       once = false;
     }
+
+    return state;
   };
 }

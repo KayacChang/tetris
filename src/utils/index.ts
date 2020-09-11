@@ -20,18 +20,3 @@ export const mapTable = curry(<T>(func: MapFunc<T>, table: T[][]) => {
     return row.map((value, x) => func(value, [x, y]));
   });
 });
-
-export function throttle(ms: number, func: Function) {
-  let timePassed = ms;
-
-  return (delta: number, ...args: any[]) => {
-    if (timePassed < ms) {
-      timePassed += delta;
-
-      return;
-    }
-    timePassed = 0;
-
-    return func(delta, ...args);
-  };
-}

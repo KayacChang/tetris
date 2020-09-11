@@ -1,19 +1,11 @@
-import { Store } from "redux";
-import { State } from "../reducers";
-import { updateTetromino } from "../reducers/tetromino";
-import { ITetromino } from "../models/tetromino";
-
-function drop(tetrominos: ITetromino[]) {
-  return tetrominos.map(({ ...rest }) => ({
-    ...rest,
-    vector: { x: 0, y: 1 },
-  }));
-}
+import { State } from "./types";
 
 export default function DropTetrominoSystem() {
-  return (delta: number, store: Store<State>) => {
-    const { tetrominos } = store.getState();
+  return (delta: number, state: State) => {
+    if (state.current) {
+      state.current.vector.y = 1;
+    }
 
-    store.dispatch(updateTetromino(drop(tetrominos)));
+    return state;
   };
 }
