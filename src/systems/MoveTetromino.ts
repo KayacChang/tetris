@@ -36,7 +36,7 @@ export default function MoveTetrominoSystem() {
         vector: { x: 0, y: 0 },
       });
 
-      return { ...state, current: undefined };
+      return state;
     }
 
     const { position, vector } = state.current;

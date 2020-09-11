@@ -2,16 +2,12 @@ import { State } from "./types";
 import { Tetromino } from "../models/tetromino";
 
 export default function SpawnTetrominoSystem() {
-  let once = true;
-
   return (delta: number, state: State) => {
-    if (once) {
+    if (!state.current || state.current?.lock) {
       const current = Tetromino("I");
 
       state.tetrominos.push(current);
       state.current = current;
-
-      once = false;
     }
 
     return state;
