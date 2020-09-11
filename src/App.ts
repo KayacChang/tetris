@@ -6,6 +6,7 @@ import DropTetrominoSystem from "./systems/DropTetromino";
 import MoveTetrominoSystem from "./systems/MoveTetromino";
 import PlayField from "./models/playfield";
 import throttle from "./systems/throttle";
+import UpdatePlayFieldSystem from "./systems/UpdatePlayField";
 
 export default function main(app: Application) {
   const systems = SystemManager(app, {
@@ -18,4 +19,5 @@ export default function main(app: Application) {
   systems.add(throttle(1000, DropTetrominoSystem()));
   systems.add(MoveTetrominoSystem());
   systems.add(RenderSystem(app));
+  systems.add(UpdatePlayFieldSystem());
 }
