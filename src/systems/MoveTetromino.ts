@@ -1,5 +1,5 @@
 import { ITetromino } from "../models/tetromino";
-import { mergeWith, add } from "ramda";
+import { mergeWith, add, equals } from "ramda";
 import { State } from "./types";
 
 function collide(
@@ -17,7 +17,9 @@ function collide(
       const x = position.x + vector.x + px;
       const y = position.y + vector.y + py;
 
-      isCollide = !Boolean(playField?.[y]?.[x]);
+      if (!Boolean(playField?.[y]?.[x])) {
+        isCollide = true;
+      }
     });
   });
 
@@ -32,7 +34,7 @@ export default function MoveTetrominoSystem() {
 
     if (collide(state.playfield, state.current)) {
       Object.assign(state.current, {
-        lock: true,
+        lock: equals(state.current.vector, { x: 0, y: 1 }),
         vector: { x: 0, y: 0 },
       });
 
@@ -40,7 +42,6 @@ export default function MoveTetrominoSystem() {
     }
 
     const { position, vector } = state.current;
-
     Object.assign(state.current, {
       position: mergeWith(add, position, vector),
       vector: { x: 0, y: 0 },

@@ -12,22 +12,43 @@ const KEYMAP: Record<string, ACTION> = {
   d: ACTION.RIGHT,
 };
 
-export default function ControlSystem() {
+function KeyBoard() {
   const pressing = new Set<ACTION>();
+
   window.addEventListener("keydown", ({ key }) => {
     const action = KEYMAP[key];
 
-    action ?? pressing.add(action);
+    action !== undefined && pressing.add(action);
   });
-
   window.addEventListener("keyup", ({ key }) => {
     const action = KEYMAP[key];
 
-    action ?? pressing.delete(action);
+    action !== undefined && pressing.delete(action);
   });
 
+  return () => pressing;
+}
+
+export default function ControlSystem() {
+  const getKey = KeyBoard();
+
   return (delta: number, state: State) => {
+    if (!state.current) {
+      return state;
+    }
+    const { current } = state;
+    const pressing = getKey();
+
     if (pressing.has(ACTION.LEFT)) {
+      current.vector.x = -1;
+    }
+
+    if (pressing.has(ACTION.RIGHT)) {
+      current.vector.x = 1;
+    }
+
+    if (pressing.has(ACTION.DOWN)) {
+      current.vector.y = 1;
     }
 
     return state;
