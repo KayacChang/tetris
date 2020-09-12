@@ -20,3 +20,7 @@ export const mapTable = curry(<T>(func: MapFunc<T>, table: T[][]) => {
     return row.map((value, x) => func(value, [x, y]));
   });
 });
+
+export function randomPick<T>(list: T[]) {
+  return list[Math.floor(Math.random() * list.length)];
+}

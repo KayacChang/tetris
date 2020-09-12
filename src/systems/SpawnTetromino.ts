@@ -1,9 +1,6 @@
 import { State } from "./types";
 import { Tetromino } from "../models/tetromino";
-
-function randomPick<T>(list: T[]) {
-  return list[Math.floor(Math.random() * list.length)];
-}
+import { randomPick } from "../utils";
 
 export default function SpawnTetrominoSystem() {
   return (delta: number, state: State) => {
