@@ -12,7 +12,7 @@ export default function UpdatePlayFieldSystem() {
             return;
           }
 
-          playfield[py + position.y][px + position.x] = 0;
+          playfield[py + position.y][px + position.x] = 1;
         });
       });
     });

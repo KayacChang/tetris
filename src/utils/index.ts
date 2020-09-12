@@ -24,3 +24,7 @@ export const mapTable = curry(<T>(func: MapFunc<T>, table: T[][]) => {
 export function randomPick<T>(list: T[]) {
   return list[Math.floor(Math.random() * list.length)];
 }
+
+export function inRange(min: number, max: number, value: number) {
+  return min <= value && value <= max;
+}

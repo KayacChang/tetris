@@ -1,6 +1,7 @@
 import { ITetromino } from "../models/tetromino";
 import { mergeWith, add, equals } from "ramda";
 import { State } from "./types";
+import { inRange } from "../utils";
 
 function collide(
   playField: number[][],
@@ -17,7 +18,11 @@ function collide(
       const x = position.x + vector.x + px;
       const y = position.y + vector.y + py;
 
-      if (!Boolean(playField?.[y]?.[x])) {
+      const hitBlock = playField?.[y]?.[x];
+      const hitBottom = y >= playField.length;
+      const hitBorder = !inRange(0, playField[0].length - 1, x);
+
+      if (hitBlock || hitBottom || hitBorder) {
         isCollide = true;
       }
     });
