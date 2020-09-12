@@ -12,14 +12,15 @@ import ControlSystem from "./systems/Control";
 export default function main(app: Application) {
   const systems = SystemManager(app, {
     playfield: PlayField(),
-    tetrominos: [],
     current: undefined,
   });
 
-  systems.add(throttle(100, ControlSystem()));
-  systems.add(SpawnTetrominoSystem());
-  systems.add(throttle(1000, DropTetrominoSystem()));
-  systems.add(MoveTetrominoSystem());
-  systems.add(UpdatePlayFieldSystem());
-  systems.add(RenderSystem(app));
+  systems.add(
+    throttle(100, ControlSystem()),
+    SpawnTetrominoSystem(),
+    throttle(1000, DropTetrominoSystem()),
+    MoveTetrominoSystem(),
+    UpdatePlayFieldSystem(),
+    RenderSystem(app)
+  );
 }

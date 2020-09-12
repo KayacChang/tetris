@@ -9,7 +9,6 @@ export default function SpawnTetrominoSystem() {
         randomPick(["I", "J", "L", "O", "S", "T", "Z"])
       );
 
-      state.tetrominos.push(current);
       state.current = current;
     }
 

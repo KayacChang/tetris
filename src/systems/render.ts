@@ -1,8 +1,7 @@
 import { Application, Container } from "pixi.js";
 import Grid from "../views/grid";
 import { mapTable } from "../utils";
-import { when, always } from "ramda";
-import { ITetromino } from "../models/tetromino";
+import { always, identity, ifElse, when } from "ramda";
 import { State } from "./types";
 
 export default function RenderSystem(app: Application) {
@@ -15,8 +14,9 @@ export default function RenderSystem(app: Application) {
 
   function fresh(table: number[][]) {
     app.stage.removeChild(layout);
+
     layout = Grid({
-      table: mapTable(always(0xffffff), table),
+      table: mapTable(ifElse(Boolean, identity, always(0xffffff)), table),
       ...config,
     });
     layout.position.set(app.screen.width / 2, app.screen.height / 2);
@@ -24,25 +24,27 @@ export default function RenderSystem(app: Application) {
     app.stage.addChild(layout);
   }
 
-  function tetrominoToGrid({ blocks, rotate, position, color }: ITetromino) {
-    const grid = Grid({
-      table: mapTable(when(Boolean, always(color)), blocks[rotate]),
-      ...config,
-    });
-
-    grid.position.set(
-      position.x * config.gridWidth,
-      position.y * config.gridHeight
-    );
-
-    return grid;
-  }
-
   return (delta: number, state: State) => {
-    const { playfield, tetrominos } = state;
+    const { playfield, current } = state;
 
     fresh(playfield);
-    tetrominos.length && layout.addChild(...tetrominos.map(tetrominoToGrid));
+
+    if (current) {
+      const tetromino = Grid({
+        table: mapTable(
+          when(Boolean, always(current.color)),
+          current.blocks[current.rotate]
+        ),
+        ...config,
+      });
+
+      tetromino.position.set(
+        current.position.x * config.gridWidth,
+        current.position.y * config.gridHeight
+      );
+
+      layout.addChild(tetromino);
+    }
 
     return state;
   };

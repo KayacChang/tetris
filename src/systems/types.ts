@@ -2,7 +2,6 @@ import { ITetromino } from "../models/tetromino";
 
 export type State = {
   playfield: number[][];
-  tetrominos: ITetromino[];
   current?: ITetromino;
 };
 

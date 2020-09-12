@@ -19,7 +19,7 @@ function collide(
       const y = position.y + vector.y + py;
 
       const hitBlock = playField?.[y]?.[x];
-      const hitBottom = y >= playField.length;
+      const hitBottom = y > playField.length - 1;
       const hitBorder = !inRange(0, playField[0].length - 1, x);
 
       if (hitBlock || hitBottom || hitBorder) {

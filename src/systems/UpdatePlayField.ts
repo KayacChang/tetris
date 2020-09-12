@@ -1,19 +1,18 @@
 import { State } from "./types";
-import PlayField from "../models/playfield";
 
 export default function UpdatePlayFieldSystem() {
   return (delta: number, state: State) => {
-    const playfield = PlayField();
+    if (!state.current || !state.current.lock) {
+      return state;
+    }
 
-    state.tetrominos.forEach(({ blocks, rotate, position, lock }) => {
-      blocks[rotate].forEach((row, py) => {
-        row.forEach((exist, px) => {
-          if (!exist || !lock) {
-            return;
-          }
+    const playfield = state.playfield;
 
-          playfield[py + position.y][px + position.x] = 1;
-        });
+    const { blocks, rotate, position, color } = state.current;
+
+    blocks[rotate].forEach((row, py) => {
+      row.forEach((exist, px) => {
+        if (exist) playfield[py + position.y][px + position.x] = color;
       });
     });
 
