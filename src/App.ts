@@ -16,7 +16,7 @@ export default function main(app: Application) {
     current: undefined,
   });
 
-  systems.add(throttle(80, ControlSystem()));
+  systems.add(throttle(100, ControlSystem()));
   systems.add(SpawnTetrominoSystem());
   systems.add(throttle(1000, DropTetrominoSystem()));
   systems.add(MoveTetrominoSystem());

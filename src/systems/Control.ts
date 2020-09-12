@@ -1,12 +1,14 @@
 import { State } from "./types";
 
 enum ACTION {
+  UP,
   DOWN,
   LEFT,
   RIGHT,
 }
 
 const KEYMAP: Record<string, ACTION> = {
+  w: ACTION.UP,
   s: ACTION.DOWN,
   a: ACTION.LEFT,
   d: ACTION.RIGHT,
@@ -49,6 +51,10 @@ export default function ControlSystem() {
 
     if (pressing.has(ACTION.DOWN)) {
       current.vector.y = 1;
+    }
+
+    if (pressing.has(ACTION.UP)) {
+      current.rotate = ((current.rotate + 1) % 4) as 0 | 1 | 2 | 3;
     }
 
     return state;
