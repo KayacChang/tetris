@@ -1,10 +1,10 @@
 import { State } from "./types";
 
 enum ACTION {
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT,
+  UP = "UP",
+  DOWN = "DOWN",
+  LEFT = "LEFT",
+  RIGHT = "RIGHT",
 }
 
 const KEYMAP: Record<string, ACTION> = {
@@ -14,25 +14,21 @@ const KEYMAP: Record<string, ACTION> = {
   d: ACTION.RIGHT,
 };
 
-function KeyBoard() {
+function KeyBoard(keymap: Record<string, ACTION>) {
   const pressing = new Set<ACTION>();
 
   window.addEventListener("keydown", ({ key }) => {
-    const action = KEYMAP[key];
-
-    action !== undefined && pressing.add(action);
+    keymap[key] && pressing.add(keymap[key]);
   });
   window.addEventListener("keyup", ({ key }) => {
-    const action = KEYMAP[key];
-
-    action !== undefined && pressing.delete(action);
+    keymap[key] && pressing.delete(keymap[key]);
   });
 
   return () => pressing;
 }
 
 export default function ControlSystem() {
-  const getKey = KeyBoard();
+  const getKey = KeyBoard(KEYMAP);
 
   return (delta: number, state: State) => {
     if (!state.current) {

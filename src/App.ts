@@ -13,6 +13,7 @@ export default function main(app: Application) {
   const systems = SystemManager(app, {
     playfield: PlayField(),
     current: undefined,
+    clearLines: [],
   });
 
   systems.add(

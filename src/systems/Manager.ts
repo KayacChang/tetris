@@ -4,7 +4,11 @@ import { System, State } from "./types";
 export default function SystemManager({ ticker }: Application, state: State) {
   const systems: System[] = [];
 
-  const update = (system: System) => (state = system(ticker.deltaMS, state));
+  const update = (system: System) => {
+    state = system(ticker.deltaMS, state);
+
+    console.log(state.clearLines);
+  };
 
   ticker.add(() => systems.forEach(update));
 
