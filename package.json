@@ -2,6 +2,7 @@
   "name": "tetris",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://KayacChang.github.io/tetris",
   "dependencies": {
     "pixi.js": "^5.3.3",
     "ramda": "^0.27.1",
@@ -10,6 +11,8 @@
     "web-vitals": "^0.2.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,6 +44,7 @@
     "@types/react-dom": "^16.9.0",
     "jest-canvas-mock": "^2.2.0",
     "react-scripts": "3.4.3",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "gh-pages": "^3.1.0"
   }
 }
