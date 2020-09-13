@@ -1,13 +1,17 @@
 import { curry } from "ramda";
 
-export function fillTable<T>(row: number, col: number, fill: T): T[][] {
+export function fill<T>(len: number, value: T): T[] {
+  return Array(len).fill(value);
+}
+
+export function fillTable<T>(row: number, col: number, value: T): T[][] {
   if (row < 1 || col < 1) {
-    throw new Error(`the grid row and col should be large than 0.`);
+    throw new Error(`row and col should be large than 0.`);
   }
 
   return Array(row)
     .fill([])
-    .map(() => Array(col).fill(fill));
+    .map(() => fill(col, value));
 }
 
 export function cloneTable<T>(table: T[][]) {

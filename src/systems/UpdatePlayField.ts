@@ -1,4 +1,12 @@
+import { all, filter, complement, until, length, gte, prepend } from "ramda";
+import { fill } from "../utils";
 import { State } from "./types";
+
+const notFillout = complement(all(Boolean));
+
+const len20 = (x: any[]) => gte(length(x), 20);
+
+const fillTo20 = until(len20, prepend(fill(10, 0)));
 
 export default function UpdatePlayFieldSystem() {
   return (delta: number, state: State) => {
@@ -6,7 +14,7 @@ export default function UpdatePlayFieldSystem() {
       return state;
     }
 
-    const playfield = state.playfield;
+    let playfield = state.playfield;
 
     const { blocks, rotate, position, color } = state.current;
 
@@ -16,6 +24,10 @@ export default function UpdatePlayFieldSystem() {
       });
     });
 
-    return { ...state, playfield };
+    const rest = filter(notFillout)(playfield);
+    const clear = playfield.length - rest.length;
+    console.log(clear);
+
+    return { ...state, playfield: fillTo20(rest) };
   };
 }
