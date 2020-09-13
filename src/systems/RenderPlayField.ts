@@ -4,7 +4,7 @@ import { mapTable } from "../utils";
 import { always, identity, ifElse, when } from "ramda";
 import { State } from "./types";
 
-export default function RenderSystem(app: Application) {
+export default function RenderPlayFieldSystem(app: Application) {
   const config = {
     gridWidth: 40,
     gridHeight: 40,

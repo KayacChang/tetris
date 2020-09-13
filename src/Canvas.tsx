@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Application } from "pixi.js";
+import { always } from "ramda";
 
 type ApplicationProps = {
   autoStart?: boolean;
@@ -23,8 +24,13 @@ type Props = ApplicationProps & {
   init: (app: Application) => void;
 };
 
-export default memo(({ init, ...props }: Props) => (
-  <canvas
-    ref={(view: HTMLCanvasElement) => init(new Application({ view, ...props }))}
-  ></canvas>
-));
+export default memo(
+  ({ init, ...props }: Props) => (
+    <canvas
+      ref={(view: HTMLCanvasElement) =>
+        init(new Application({ view, ...props }))
+      }
+    ></canvas>
+  ),
+  always(true)
+);

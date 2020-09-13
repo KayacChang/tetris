@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Canvas from "./Canvas";
-import App from "./App";
+import Game from "./App";
+import HUD from "./hud";
 
 const config = {
   width: 900,
   height: 1200,
 };
 
+function App() {
+  const [state, setState] = useState({
+    score: 0,
+  });
+
+  return (
+    <>
+      <Canvas init={(app) => Game(app, setState)} {...config} />
+
+      <HUD {...state} />
+    </>
+  );
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <Canvas init={App} {...config} />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,4 +1,4 @@
-export default function score(lines: number[]) {
+export default function toScore(lines: number[]) {
   return lines.reduce(
     ({ scores, totalLines }, cleared) => ({
       scores:

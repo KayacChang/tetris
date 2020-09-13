@@ -6,8 +6,6 @@ export default function SystemManager({ ticker }: Application, state: State) {
 
   const update = (system: System) => {
     state = system(ticker.deltaMS, state);
-
-    console.log(state.clearLines);
   };
 
   ticker.add(() => systems.forEach(update));

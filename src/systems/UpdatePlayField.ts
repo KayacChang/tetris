@@ -1,10 +1,15 @@
-import { all, filter, complement, until, length, gte, prepend } from "ramda";
+import { all, filter, complement } from "ramda";
 import { fill } from "../utils";
 import { State } from "./types";
 
 const notFillout = complement(all(Boolean));
-const len20 = (x: any[]) => gte(length(x), 20);
-const fillTo20 = until(len20, prepend(fill(10, 0)));
+
+function fillTo20(list: number[][]) {
+  while (list.length < 20) {
+    list = [fill(10, 0), ...list];
+  }
+  return list;
+}
 
 export default function UpdatePlayFieldSystem() {
   return (delta: number, state: State) => {
