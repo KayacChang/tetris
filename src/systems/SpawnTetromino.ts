@@ -4,12 +4,19 @@ import { randomPick } from "../utils";
 
 export default function SpawnTetrominoSystem() {
   return (delta: number, state: State) => {
-    if (!state.current || state.current?.lock) {
-      const current = Tetromino(
+    const { current, playfield } = state;
+
+    if (!current || current?.lock) {
+      const tetromino = Tetromino(
         randomPick(["I", "J", "L", "O", "S", "T", "Z"])
       );
 
-      state.current = current;
+      Object.assign(tetromino.position, {
+        x: Math.floor(playfield[0].length / 2 - 2),
+        y: -1,
+      });
+
+      return { ...state, current: tetromino };
     }
 
     return state;
