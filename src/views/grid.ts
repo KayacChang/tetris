@@ -1,67 +1,30 @@
-import { Graphics, Container } from "pixi.js";
-
-type Color = number;
-
-type GridProps = {
-  px: number;
-  py: number;
-  width: number;
-  height: number;
-  fillColor?: Color;
-  lineWidth?: number;
-  lineColor?: Color;
-};
-function GridItem({
-  px,
-  py,
-  width,
-  height,
-  fillColor,
-  lineWidth = 0,
-  lineColor = 0xffffff,
-}: GridProps) {
-  const grid = new Graphics();
-
-  grid.lineStyle(lineWidth, lineColor);
-  grid.beginFill(fillColor);
-  grid.drawRect(0, 0, width - lineWidth, height - lineWidth);
-  grid.endFill();
-
-  grid.position.set(px * width, py * height);
-
-  return grid;
-}
-
-const getGridItem = (props: Omit<GridProps, "px" | "py">) => (
-  px: number,
-  py: number,
-  fillColor: number
-) => Boolean(fillColor) && GridItem({ px, py, fillColor, ...props });
+import { Container, DisplayObject } from "pixi.js";
 
 type Props = {
-  table: Color[][];
-  gridWidth: number;
-  gridHeight: number;
+  px: number;
+  py: number;
+  color: number;
 };
-export default function Grid({ table, gridWidth, gridHeight }: Props) {
-  const item = getGridItem({
-    width: gridWidth,
-    height: gridHeight,
-  });
+type Factory = (props: Props) => DisplayObject;
 
-  const layout = new Container();
+export default function Grid(Item: Factory) {
+  return (table: number[][]) => {
+    const layout = new Container();
 
-  layout.addChild(
-    ...table
+    const children = table
       .map(
         (row, py) =>
           row
-            .map((color, px) => item(px, py, color))
+            .map((color, px) => Boolean(color) && Item({ px, py, color }))
             .flat()
             .filter(Boolean) as Container[]
       )
-      .flat()
-  );
+      .flat();
 
-  return layout;
+    if (children.length) {
+      layout.addChild(...children);
+    }
+
+    return layout;
+  };
 }

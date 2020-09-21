@@ -16,7 +16,6 @@ export default function main(app: Application, setState: (state: any) => void) {
     current: undefined,
     clearLines: [],
   });
-
   systems.add(
     throttle(100, ControlSystem()),
     SpawnTetrominoSystem(),
